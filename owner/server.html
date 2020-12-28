@@ -1,0 +1,122 @@
+<style type="text/css">
+    a:link { text-decoration: none; }
+    </style>
+    <div id="content" class="content"> 
+      <ol class="breadcrumb pull-right">
+        <check if="{{ @server->id }}">
+          <true>
+            <li class="breadcrumb-item"><a href="/home"><i class="fa fa-dashboard"></i> Menu Utama</a></li>
+            <li class="breadcrumb-item"><a href="/home/admin/server">Daftar Server</a></li>
+            <li  class="breadcrumb-item active">Ubah Server ({{ @server->servername }})</li>
+          </true>
+          <false>
+            <li class="breadcrumb-item"><a href="/home"><i class="fa fa-dashboard"></i> Menu Utama</a></li>
+            <li class="breadcrumb-item"><a href="/home/admin/server">Daftar Server</a></li>
+            <li class="breadcrumb-item active">Tambah Server</li>
+          </false>
+        </check>  
+      </ol>
+      <h1 class="page-header">
+        <check if="{{ @server->id }}">
+          <true>
+            {{ @server->servername }}
+          </true>
+          <false>
+            Tambah Server
+          </false>
+        </check>
+      </h1>
+      <div class="panel blue-gradient">
+        <div class="panel-heading">
+          <h4 class="panel-title text-white"><i class="fa fa-plus text-white"> Tambah Server</i></h4>
+        </div>
+        <div class="panel-body bg-white text-black">
+          <check if="{{ @message }}">     
+            <div class="alert alert-{{ @message['type'] }}">
+              {{ @message['data'] }}
+            </div>
+          </check>
+          <form role="form" action="{{ @URI }}" method="POST">
+          	<div class="form-group">
+              <label>Nama Server</label>
+              <input class="form-control" placeholder="Nama Server" name="servername" type="text" value="{{ @server->servername }}" required>
+            </div>
+            <div class="form-group">
+              <label>Lokasi Server</label>
+              <input class="form-control" placeholder="Lokasi Server" name="country" type="text" value="{{ @server->country }}" required>
+            </div>
+            <div class="form-group">
+              <label>IP / Hostname</label>
+              <input class="form-control" placeholder="IP / Hostname Server" name="host" type="text" value="{{ @server->host }}" required>
+            </div>
+            <div class="form-group">
+              <label>SSH Port</label>
+              <input class="form-control" placeholder="22" name="openssh" type="text" value="{{ @server->openssh }}" required>
+            </div>
+            <div class="form-group">
+              <label>Dropbear Port</label>
+              <input class="form-control" placeholder="110 , 143" name="dropbear" type="text" value="{{ @server->dropbear }}" required>
+            </div>
+            <div class="form-group">
+              <label>SSL Port</label>
+              <input class="form-control" placeholder="123 , 443" name="stunnel" type="text" value="{{ @server->stunnel }}" required>
+            </div>
+            <div class="form-group">
+              <label>OpenVPN Port</label>
+              <input class="form-control" placeholder="442" name="openvpn_port" type="openvpn_port" value="{{ @server->openvpn_port }}" required>
+            </div>
+            <div class="form-group">
+              <label>OpenVPN Link</label>
+              <input class="form-control" placeholder="Link OVPN" name="openvpn_link" type="text" value="{{ @server->openvpn_link }}" required>
+            </div>
+            <div class="form-group">
+              <label>Squid Port</label>
+              <input class="form-control" placeholder="80 , 3128 , 8080" name="proxy" type="text" value="{{ @server->proxy }}" required>
+            </div>
+            <div class="form-group">
+              <label>Pemilik Server</label>
+              <input class="form-control" name="server_owner" type="text" value="WILDYVPN" required>
+            </div>
+            <div class="form-group">
+              <label>Izinkan Torrent ?</label>
+              <select class="form-control" name="torrent" value="{{ @server->torrent }}">
+                <option value="No">Tidak</option>
+                <option value="Yes">Boleh</option>
+              </select>
+            </div>
+            <!-- <div class="form-group">
+              <label>User limit</label>
+              <input class="form-control" placeholder="this function is not working, use 0 instead" name="limitacc" type="text" value="{{ @server->limitacc }}" required>
+            </div> -->
+            <div class="form-group">
+              <label>Harga</label>
+              <div class="input-group">
+                <span class="input-group-addon">$ </span>
+                <input class="form-control" placeholder="1" name="price" type="number" step="1" value="{{ @server->price }}" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Password VPS</label>
+              <input class="form-control" placeholder="Password VPS" name="root_pass" type="password">
+            </div>
+            <div align="right">
+              <button type="submit" class="btn btn-primary text-white">Simpan</button>
+              <check if="{{ @server->id }}">
+                <check if="{{ @server->active==1 }}">
+                  <true>
+                    <a href="{{ @URI.'/active/0' }}" class="btn btn-warning text-white">Ban</a>
+                  </true>
+                  <false>
+                    <a href="{{ @URI.'/active/1' }}" class="btn btn-success text-white">Unban</a>
+                  </false>
+                </check>
+                <a href="{{ @URI.'/delete' }}" class="btn btn-danger hapus text-white">Hapus</a>
+              </check>
+              <a href="/home/admin/server" class="btn btn-default text-white">Kembali</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>

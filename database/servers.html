@@ -1,0 +1,51 @@
+<style type="text/css">
+    tr.noBorder td {
+      border: 0;
+    }
+    </style>
+    <div id="content" class="content">  
+      <ol class="breadcrumb">
+      	<li><a href="/home/setting"><div class="badge blue-gradient text-white">Menu Utama</div>➜</a></li>
+      	<li><a href="/home/member/server"><div class="badge purple-gradient text-white">Daftar Server </div></a></li>
+      	</ol><br />
+      <h2 class="page-header"><i class="fa fa-laptop cyan-text"></i> Daftar Server</h2>
+      <div class="row">
+        <repeat group="{{ @servers }}" value="{{ @server }}">
+          <div class="col-sm-7 col-md-6 col-lg-8">
+            <check if="{{ @message }}">     
+              <div class="alert alert-{{ @message['type'] }}">
+                {{ @message['data'] }}
+              </div>
+            </check>
+            <div class="panel blue-gradient">
+              <div class="panel-heading">
+                <h4 class="panel-title text-white"><i class="fa fa-server"></i> {{ @server->servername }}</b> {{ @server->active==1?'':'( Locked )'}}</h4>
+              </div>
+              <div class="panel-body bg-white text-black">
+                <table class="table">
+                  <tr class="noBorder">
+                    <td>Lokasi</td><td>{{ @server->country }}</td>
+                  </tr>
+                  <tr class="noBorder">
+                    <td>Host / IP</td><td>{{ @server->host }}</td>
+                  </tr>
+                  <tr class="noBorder">
+                    <td>Masa Aktif</td><td>30 days</td>
+                  </tr>
+                  <tr class="noBorder">
+                    <td>Pemilik Server</td><td>{{ @server->server_owner }}</td>
+                   </tr>
+                    <tr class="noBorder">
+                    <td>Harga</td><td>$ {{ @server->price }}</td>
+                   </tr>
+                </table>
+              </div>
+              <div class="panel-footer bg-white text-right">
+                <a href="{{ @URI.'/'.@server->id }}" class="btn aqua-gradient text-white text-capitalize"> <i class="fa fa-hourglass fa-spin"></i> Buat Akun</a>
+              </div>
+            </div>
+          </div>
+        </repeat>
+      </div>
+    </div>
+  </div>
